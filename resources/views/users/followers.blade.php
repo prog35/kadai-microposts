@@ -31,9 +31,7 @@
                     </a>
                 </li>
             </ul>
-            @if (count($microposts) >0)
-                @include('microposts.microposts', ['microposts' => $microposts])
-            @endif
+            @include('users.users', ['users' => $users])
         </div>
     </div>
 @endsection

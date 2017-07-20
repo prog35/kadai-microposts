@@ -42,4 +42,51 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany(Micropost::class);
     }
+    
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'user_id', 'follow_id')->withTimestamps();
+    }
+    
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'follow_id', 'user_id')->withTimestamps();
+    }
+    
+    public function follow($userId)
+    {
+        // すでにフォローしているかの確認
+        $exist = $this->is_following($userId);
+        // 自分自身ではないかの確認
+        $its_me = $this->id == $userId;
+        
+        if ($exist || $its_me) {
+            return false;
+        } else {
+            // 未フォローであればフォローする
+            $this->followings()->attach($userId);
+            return true;
+        }
+    }
+    
+    public function unfollow($userId)
+    {
+         // すでにフォローしているかの確認
+        $exist = $this->is_following($userId);
+        // 自分自身ではないかの確認
+        $its_me = $this->id == $userId;
+        
+        if ($exist && !$its_me) {
+            // フォローを外す
+            $this->followings()->detach($userId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function is_following($userId) {
+        return $this->followings()->where('follow_id', $userId)->exists();
+    }
+    
 }

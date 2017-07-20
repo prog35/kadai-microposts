@@ -5,7 +5,7 @@
         <aside class="col-xs-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{ $user->name }}</h3>
+                    <h3 class="panel-title">{{ $user->name}}</h3>
                 </div>
                 <div class="panel-body">
                     <img class="media-object img-rounded img-responsive" src="{{ Gravatar::src($user->email, 500) }}" alt="">
@@ -31,9 +31,8 @@
                     </a>
                 </li>
             </ul>
-            @if (count($microposts) >0)
-                @include('microposts.microposts', ['microposts' => $microposts])
-            @endif
+            @include('users.users', ['users' => $users])
         </div>
     </div>
+
 @endsection
