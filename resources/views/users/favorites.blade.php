@@ -31,12 +31,12 @@
                     </a>
                 </li>
                 <li role="presentation" class="{{ Request::is('users/*/favorites') ? 'active' : '' }}">
-                    <a href="{{ route('users.favorites', ['user_id' => $user->id]) }}">
+                    <a href="{{ route('users.favorites', ['id' => $user->id]) }}">
                         Favorites <span class="badge">{{ $count_favorites }}</span>
                     </a>
                 </li>
             </ul>
-            @include('users.users', ['users' => $users])
+            @include('microposts.microposts', ['microposts' => $microposts])
         </div>
     </div>
 @endsection

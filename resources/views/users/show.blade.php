@@ -30,6 +30,11 @@
                         Followers <span class="badge">{{ $count_followers }}</span>
                     </a>
                 </li>
+                <li role="presentation" class="{{ Request::is('users/*/favorites') ? 'active' : '' }}">
+                    <a href="{{ route('users.favorites', ['user_id' => $user->id]) }}">
+                        Favorites <span class="badge">{{ $count_favorites }}</span>
+                    </a>
+                </li>
             </ul>
             @if (count($microposts) >0)
                 @include('microposts.microposts', ['microposts' => $microposts])
